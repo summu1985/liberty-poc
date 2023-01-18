@@ -1,1 +1,1 @@
-README for the Data mapping POC
+Refer Working with AtlasMap for Data Conversion
