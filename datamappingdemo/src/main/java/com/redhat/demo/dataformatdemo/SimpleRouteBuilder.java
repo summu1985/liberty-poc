@@ -6,6 +6,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
 import java.sql.Timestamp; 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import org.apache.camel.component.jackson.JacksonDataFormat;
 import org.apache.camel.model.rest.RestBindingMode;
@@ -32,24 +33,14 @@ public class SimpleRouteBuilder extends RouteBuilder {
         .consumes(MediaType.APPLICATION_JSON_VALUE)
         .produces(MediaType.APPLICATION_JSON_VALUE)
 
-        //.get("/opportunity").to("{{route.findAllOpportunities}}")
         .post("/prospect").to("direct:getCustomer");
-        //.get("/myfile").to("direct:viewfile");
 
         from("direct:getCustomer")
-        .to("log:response")
+        .to("log:request")
         .to("atlasmap:atlasmap-mapping.adm")
-                .convertBodyTo(String.class)
-                //.unmarshal(getJacksonDataFormat(OpportunityList.class))
-                //.marshal().json()
-                .to("log:response");
+        .convertBodyTo(String.class)
+        .to("log:response");
 
 
-    }
-
-    private JacksonDataFormat getJacksonDataFormat(Class<?> unmarshalType) {
-        JacksonDataFormat format = new JacksonDataFormat();
-        format.setUnmarshalType(unmarshalType);
-        return format;
     }
 }
