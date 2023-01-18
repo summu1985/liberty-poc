@@ -1,0 +1,113 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "default": {},
+    "title": "Root Schema",
+    "required": [
+        "firstname",
+        "lastname",
+        "age",
+        "email",
+        "mobile",
+        "addressline1",
+        "addressline2",
+        "city",
+        "state",
+        "pincode"
+    ],
+    "properties": {
+        "firstname": {
+            "type": "string",
+            "default": "",
+            "title": "The firstname Schema",
+            "examples": [
+                "Sumit"
+            ]
+        },
+        "lastname": {
+            "type": "string",
+            "default": "",
+            "title": "The lastname Schema",
+            "examples": [
+                "Mukherjee"
+            ]
+        },
+        "age": {
+            "type": "integer",
+            "default": "0",
+            "title": "The age Schema",
+            "examples": [
+                "37"
+            ]
+        },
+        "email": {
+            "type": "string",
+            "default": "",
+            "title": "The email Schema",
+            "examples": [
+                "summukhe@redhat.com"
+            ]
+        },
+        "mobile": {
+            "type": "string",
+            "default": "",
+            "title": "The mobile Schema",
+            "examples": [
+                "+911234567890"
+            ]
+        },
+        "addressline1": {
+            "type": "string",
+            "default": "",
+            "title": "The addressline1 Schema",
+            "examples": [
+                "214 Saras Bhawan, FLat no 2B"
+            ]
+        },
+        "addressline2": {
+            "type": "string",
+            "default": "",
+            "title": "The addressline2 Schema",
+            "examples": [
+                "Ballygunge"
+            ]
+        },
+        "city": {
+            "type": "string",
+            "default": "",
+            "title": "The city Schema",
+            "examples": [
+                "Kolkata"
+            ]
+        },
+        "state": {
+            "type": "string",
+            "default": "",
+            "title": "The state Schema",
+            "examples": [
+                "West Bengal"
+            ]
+        },
+        "pincode": {
+            "type": "string",
+            "default": "",
+            "title": "The pincode Schema",
+            "examples": [
+                "700028"
+            ]
+        }
+    },
+    "examples": [{
+        "firstname": "Sumit",
+        "lastname": "Mukherjee",
+        "age": 37,
+        "email": "summukhe@redhat.com",
+        "mobile": "+911234567890",
+        "addressline1": "214 Saras Bhawan, FLat no 2B",
+        "addressline2": "Ballygunge",
+        "city": "Kolkata",
+        "state": "West Bengal",
+        "pincode": "700028"
+    }]
+}
