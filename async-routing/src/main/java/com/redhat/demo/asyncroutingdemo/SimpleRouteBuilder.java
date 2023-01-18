@@ -34,16 +34,15 @@ public class SimpleRouteBuilder extends RouteBuilder {
         .produces(MediaType.APPLICATION_JSON_VALUE)
 
         .post("/asyncrouting").to("direct:async-routing");
-        //.get("/myfile").to("direct:viewfile");
 
         from("direct:async-routing")
         .to("log:request")
-        .wireTap("direct:wiretap-routing")
         .process(exchange->{
             UUID uuid=UUID.randomUUID();
-            exchange.getIn().setBody("Employee Creation request acknowledged. Reference number : " + uuid);
             exchange.getIn().setHeader("ackId", uuid);
         })
+        .wireTap("direct:wiretap-routing")
+        .setBody(simple("Employee Creation request acknowledged. Reference number : ${headers.ackId}"))
         .to("log:response");
 
         from("direct:wiretap-routing")
@@ -53,16 +52,9 @@ public class SimpleRouteBuilder extends RouteBuilder {
         .setHeader(Exchange.HTTP_METHOD, constant("POST"))
         .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
         .to("https://dummy.restapiexample.com/api/v1/create?bridgeEndpoint=true")
-        //.unmarshal(getJacksonDataFormat(OpportunityList.class))
-        //.marshal().json()
+        .to("atlasmap:employee-persisted-to-kafka.adm")
         .convertBodyTo(String.class)
         .to("log:async-response")
         .to("kafka:requests?brokers={{camel.component.kafka.brokers}}");
-    }
-
-    private JacksonDataFormat getJacksonDataFormat(Class<?> unmarshalType) {
-        JacksonDataFormat format = new JacksonDataFormat();
-        format.setUnmarshalType(unmarshalType);
-        return format;
     }
 }
